@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<style>
+body {
+color:black;
+background-color:black;
+}
+.btn {
+  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  -webkit-border-radius: 14;
+  -moz-border-radius: 14;
+  border-radius: 14px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 30px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  text-align: center;
+  display:block;
+  position:center;
+   margin: 0 auto;
+   margin-top : 10px;
+   
+    
+
+}
+
+.btn:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+.marge {
+ margin-top : 10%;
+margin-bottom : 10%;
+ }
+</style>
+<script>
+function ON()
+{
+var xmlhttp;
+
+  xmlhttp=new XMLHttpRequest();
+
+xmlhttp.open("GET","http://127.0.0.1:7070/sarah/nexa?val=on",true);
+xmlhttp.send();
+}
+function VAR()
+{
+var xmlhttp;
+
+  xmlhttp=new XMLHttpRequest();
+
+xmlhttp.open("GET","http://127.0.0.1:7070/sarah/nexa?val=dim8",true);
+xmlhttp.send();
+}
+function OFF()
+{
+var xmlhttp;
+
+  xmlhttp=new XMLHttpRequest();
+
+xmlhttp.open("GET","http://127.0.0.1:7070/sarah/nexa?val=off",true);
+xmlhttp.send();
+}
+function reboot()
+{
+var xmlhttp;
+
+  xmlhttp=new XMLHttpRequest();
+
+xmlhttp.open("GET","http://127.0.0.1:8080/sarah/programs?progValue=reboot",true);
+xmlhttp.send();
+}
+</script>
+</head>
+<body>
+
+<div class="marge">
+<button class="btn" type="button" onclick="ON()">Lumières</button>
+
+<button class="btn" type="button" onclick="OFF()">Eteint les lumières</button>
+
+<button class="btn" type="button" onclick="VAR()">Tamiser</button>
+
+</div>
+
+</body>
+</html>
