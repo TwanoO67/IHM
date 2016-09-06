@@ -4,6 +4,10 @@
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.2.0/bootstrap-slider.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.2.0/css/bootstrap-slider.min.css" rel="stylesheet" type="text/css" media="all"></link>
 <style>
 body {
 color:black;
@@ -29,8 +33,8 @@ background-color:black;
   position:center;
    margin: 0 auto;
    margin-top : 10px;
-   
-    
+
+
 
 }
 
@@ -49,48 +53,64 @@ margin-bottom : 10%;
  }
 </style>
 <script>
+
+var url_nexa = "http://127.0.0.1:7070/sarah/nexa";
+var url_sarah = "http://127.0.0.1:8080/sarah/programs";
+
 function ON()
 {
-var xmlhttp;
-
-  xmlhttp=new XMLHttpRequest();
-
-xmlhttp.open("GET","http://127.0.0.1:7070/sarah/nexa?val=on",true);
-xmlhttp.send();
+  $.get(url_nexa+"?val=on");
 }
+
 function VAR()
 {
-var xmlhttp;
-
-  xmlhttp=new XMLHttpRequest();
-
-xmlhttp.open("GET","http://127.0.0.1:7070/sarah/nexa?val=dim8",true);
-xmlhttp.send();
+  $.get(url_nexa+"?val=dim8");
 }
+
 function OFF()
 {
-var xmlhttp;
-
-  xmlhttp=new XMLHttpRequest();
-
-xmlhttp.open("GET","http://127.0.0.1:7070/sarah/nexa?val=off",true);
-xmlhttp.send();
+  $.get(url_nexa+"?val=off");
 }
+
 function reboot()
 {
-var xmlhttp;
-
-  xmlhttp=new XMLHttpRequest();
-
-xmlhttp.open("GET","http://127.0.0.1:8080/sarah/programs?progValue=reboot",true);
-xmlhttp.send();
+  $.get(url_nexa+"?progValue=reboot");
 }
+
+var derniere_valeur = null;
+function majValeur(niveau){
+  console.log("J'envoi une nouvelle valeur "+niveau);
+  if(derniere_valeur !== niveau){
+    $.get(url_nexa+"?val="+niveau);
+    derniere_valeur = niveau;//enregistrement de la derniere valeur envoyé (pour ne pas flooder)
+  }
+
+}
+
+//quand la page est chargé
+$(document).ready(function(){
+  console.log('jQuery est bien chargé');
+  //j'initialise le slider
+  $("#id_du_slider").slider();
+  //quand le slider est bougé
+  $("#id_du_slider").on("slide", function(slideEvt) {
+    majValeur(slideEvt.value);
+  });
+  //quand le slider est cliqué
+  $("#id_du_slider").on("click", function(slideEvt) {
+    majValeur(slideEvt.value);
+  });
+})
+console.log('le code est bien chargé')
+
 </script>
 </head>
 <body>
 
 <div class="marge">
 <button class="btn" type="button" onclick="ON()">Lumières</button>
+
+<input id="id_du_slider" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="0"/>
 
 <button class="btn" type="button" onclick="OFF()">Eteint les lumières</button>
 
